@@ -8,7 +8,6 @@ SHARED_ASCII_CASES = [
     pytest.param("caiopa", ["a"], id="Input_Type_String"),
     pytest.param(['c', 'a', 'i', 'o', 'p', 'a'], ["a"], id="Input_Type_List"),
     pytest.param(('c', 'a', 'i', 'o', 'p', 'a'), ["a"], id="Input_Type_Tuple"),
-    # todo: test what happens when the input type is an invalid type.
     
     # Regular test cases and edge cases
     pytest.param("", [], id="Logic_Empty_String"),
@@ -37,6 +36,15 @@ UNICODE_ONLY_CASES = [
     pytest.param("ĀÿĀ", ["Ā"], id="Type_ASCII_Upper_Boundary"),   
 ]
 
+INVALID_PARAMETER_VALUES = [
+    pytest.param(None, "Input parameter can't be none.", id="Logic_None_Input_Value"),
+    pytest.param({"a", "b", "c", "c"}, "Invalid data type", id="Logic_Set_Input_Type"),
+    pytest.param({1: "a", 2: "b", 3: "c"}, "Invalid data type", id="Logic_Dictionary_Input_Type"),
+    pytest.param(1234556, "Invalid data type", id="Logic_Numerical_Input_Type"),
+    pytest.param(1.234556, "Invalid data type", id="Logic_Float_Input_Type"),
+    pytest.param(object(), "Invalid data type", id="Logic_Object_Input_Type"),
+]
+
 @pytest.mark.parametrize("test_input, expected", SHARED_ASCII_CASES + UNICODE_ONLY_CASES)
 def test_detect_frequent_characters(test_input, expected):
     # Act
@@ -44,6 +52,14 @@ def test_detect_frequent_characters(test_input, expected):
     
     # Assert
     assert sorted(result) == sorted(expected)
+
+@pytest.mark.parametrize("test_input, expected", INVALID_PARAMETER_VALUES)
+def test_detect_frequent_characters_invalid_input(test_input, expected):
+    # Act
+    with pytest.raises(TypeError) as exception_info:
+        detect_frequent_characters(test_input)
+    
+    assert expected in str(exception_info.value)
     
 
 @pytest.mark.parametrize("test_input, expected", SHARED_ASCII_CASES)
@@ -62,3 +78,11 @@ def test_detect_frequent_ascii_characters_boundaries(test_input, expected):
     
     # Assert
     assert "outside the legal ascii character code range" in str(exception_info.value)
+    
+@pytest.mark.parametrize("test_input, expected", INVALID_PARAMETER_VALUES)
+def test_detect_frequent_ascii_characters_invalid_input(test_input, expected):
+    # Act
+    with pytest.raises(TypeError) as exception_info:
+        detect_frequent_ascii_characters(test_input)
+    
+    assert expected in str(exception_info.value)
