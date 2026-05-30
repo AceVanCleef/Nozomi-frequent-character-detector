@@ -59,7 +59,7 @@ While Python 3.14 introduces official support for free-threaded builds to run th
 1. **Lock Contention:** Multi-threaded ingestion into a shared counter structure requires strict synchronization (`threading.Lock`), which forces sequential thread execution and destroys performance.
 2. **Management Overhead:** Spawning, managing, and joining OS threads introduces a latency penalty (5–20 ms) that completely eats up the 40 ms total runtime of our single-threaded array approach.
 
-### The True Production Frontier: Rust & SIMD
+### The True Production Frontier: Rust & Multithreading
 To scale this utility to higher line rates, the next logical architectural evolution would be outsourcing the core loop to **Rust** via PyO3. 
 In Rust, we could utilize true zero-cost parallelism. It would allow processing chunks of 32 or 64 bytes in a single hardware clock cycle completely parallelized across cores, reducing the runtime from milliseconds to microseconds.
 
