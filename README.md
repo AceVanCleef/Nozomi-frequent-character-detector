@@ -1,5 +1,5 @@
 # Nozomi Frequent Character Detector
-An algorithm designed for detecting character duplicates within a data stream — optimized for high performance, strict memory determinism, and safety-critical environments.
+An algorithm designed for detecting character duplicates within a data stream - optimized for high performance, strict memory determinism, and safety-critical environments.
 
 ## Context & Problem Statement
 > Write an algorithm that given a string of characters, for example {'c','a','i','o','p','a'}, will print out the list of characters appearing at least 2 times. 
@@ -22,7 +22,7 @@ Following the engineering mantra *"Make it work, make it right, make it fast"*, 
 
 ### 1. The Dual-Set Approach (The Unicode Allrounder)
 The `detect_frequent_characters` function utilizes two independent Python `set` structures (`found_once` and `found_frequently`). 
-* **Time Complexity:** $O(n)$ — Since the input stream is unsorted, we must iterate through all elements exactly once.
+* **Time Complexity:** $O(n)$ - Since the input stream is unsorted, we must iterate through all elements exactly once.
 * **Pros:** Highly idiomatic Python, utilizing C-optimized hash tables under the hood. It natively supports the entire **Unicode family** (including Asian characters and Emojis) without exploding the memory space for unused characters.
 
 ### 2. The Primitive Array Approach (The Deterministic ASCII High-Speed Solution)
@@ -73,6 +73,7 @@ Ensure you have Python 3.14+ installed. Follow these steps to set up the environ
 ```bash
 git clone [https://github.com/your-username/Nozomi-frequent-character-detector.git](https://github.com/your-username/Nozomi-frequent-character-detector.git)
 cd Nozomi-frequent-character-detector
+```
 
 ### 2. Set Up the Virtual Environment
 Create a clean environment without automated pip packages to avoid Windows path/subprocess locking:
@@ -80,18 +81,22 @@ Create a clean environment without automated pip packages to avoid Windows path/
 python -m venv .venv --without-pip
 .venv\Scripts\Activate.ps1
 python -m ensurepip --default-pip
+```
 
 ### 3. Install Dependencies
 ``` Bash
 pip install pytest line-profiler[PyQt5]
+```
 
 ### 4. Execute the Test Suite
 Run the automated test matrix to verify requirements, edge cases, and type guard clauses:
 ```Bash
 pytest
+```
 
 ### 5. Run the Performance Profiler
 ``` Bash
 lineprofilergui
+```
 
 The configuration window will open. Select `benchmark.py` in the input field called "Python script". Hit save. Next, hit the play button in the top left corner.
