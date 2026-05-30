@@ -19,7 +19,7 @@ SHARED_ASCII_CASES = [
     pytest.param("bcaade", ["a"], id="Logic_Single_Character_Position_Agnostic_In_Between"),
     pytest.param("abbccc", ["b", "c"], id="Logic_Exact_Boundary_Check"),
     
-    # Testing different character categories (unicode & robustness)
+    # Testing different character categories (robustness)
     pytest.param("123245", ["2"], id="Type_Numbers"),
     pytest.param("a!b!c!", ["!"], id="Type_Special_Characters"),
     pytest.param("abcA", [], id="Logic_Case_Sensitivity_A_vs_a"),
@@ -59,6 +59,7 @@ def test_detect_frequent_characters_invalid_input(test_input, expected):
     with pytest.raises(TypeError) as exception_info:
         detect_frequent_characters(test_input)
     
+    # Assert
     assert expected in str(exception_info.value)
     
 
@@ -85,4 +86,5 @@ def test_detect_frequent_ascii_characters_invalid_input(test_input, expected):
     with pytest.raises(TypeError) as exception_info:
         detect_frequent_ascii_characters(test_input)
     
+    # Assert
     assert expected in str(exception_info.value)
