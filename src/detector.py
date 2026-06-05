@@ -15,7 +15,7 @@ def detect_frequent_characters(string: str | list | tuple):
     found_frequently: set[str] = set()
     for e in string:
         if e in found_frequently:
-            next
+            continue
         else:
             if e in found_once:
                 found_frequently.add(e)
